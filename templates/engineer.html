@@ -1,4 +1,4 @@
-<!-- Manager card -->
+<!--Engineer card-->
 
 <div class="card hovercard">
     <div class="cardheader">
@@ -16,7 +16,8 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: {{id}}</li>
                 <li class="list-group-item">Email: {{email}}</li>
-                <li class="list-group-item">Office: {{officeNumber}}</li>
+                <li class="list-group-item">Github: <a href="https://www.github.com/{{ github() }}">{{ github() }}</a>
+                </li>
             </ul>
         </div>
     </div>
