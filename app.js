@@ -17,7 +17,7 @@ let teamMembers = [];
 let teamName;
 
 // Team name and Questions for manager
-managerPrompt = [
+managerQuestions = [
     {
         type: "input",
         message: "Let's start a project. What is the team name?",
@@ -89,7 +89,7 @@ teamQuestions = [
     },
     {
         type: "confirm",
-        message: "Would you like to add another employee to the team: " + teamname + "?",
+        message: "Would you like to add another employee to the team?",
         name: "additonalmember"
     },
 ];
