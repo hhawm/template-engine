@@ -96,20 +96,17 @@ teamQuestions = [
 
 
 
-//functions to help the async init
-
-function managerData() {
+function init() {
     inquirer.prompt(managerQuestions)
         .then(managerResponse => {
             teamName = managerResponse.teamname;
             const managerName = managerResponse.managername;
             const managerId = managerResponse.managerid;
             const managerEmail = managerResponse.manageremail;
-            const officeNumber = managerResponse.officeNumber;
+            const officeNumber = managerResponse.officenumber;
 
             //create a new manager and add them to teamMember array
-            const manager = new Manager(managerName, managerId, managerEmail, officeNumber);
-            teamMembers.push(manager);
+            manager = new Manager(managerName, managerId, managerEmail, officeNumber);
             teamData();
         })
 }
@@ -138,15 +135,61 @@ function teamData() {
             if (additonalMember === true) {
                 teamData();
             } else {
-                //render the team
+                //render manager
+                renderManagerCard(manager);
 
-                // console.log(teamName);
-                // console.log(teamMembers);
+                //render team
+                for (var i = 0; i < teamMembers.length; i++) {
+                    let employee = teamMembers[i];
+                    cards += renderEmployeeCard(employee);
+                }
+
+                //read main html and place employee cards into main html
+                let main = fs.readFileSync("./templates/main.html", "utf8");
+                main = main.replace(/{{teamTitle}}/g, teamName);
+                main = main.replace("{{cards}}", cards);
+
+                //Write new html and create path to example folder
+                writeFileAsync("./example/teampage.html", main);
             }
         })
 }
 
-console.log(teamMembers);
+//=========================
+//functions to render data
+//========================
 
+//render manager card
+function renderManagerCard(manager) {
+    let managerCard = fs.readFileSync("./templates/manager.html", "utf8");
+    managerCard = managerCard.replace("{{name}}", manager.getName());
+    managerCard = managerCard.replace("{{role}}", manager.getRole());
+    managerCard = managerCard.replace("{{id}}", manager.getId());
+    managerCard = managerCard.replace("{{email}}", manager.getEmail());
+    managerCard = managerCard.replace("{{officeNumber}}", manager.getOfficeNumber());
+    cards = managerCard;
+    return cards
+}
 
-managerData();
+//render employee cards
+function renderEmployeeCard(employee) {
+    if (employee.getRole() === "Engineer") {
+        let engineerCard = fs.readFileSync("./templates/engineer.html", "utf8");
+        engineerCard = engineerCard.replace("{{name}}", employee.getName());
+        engineerCard = engineerCard.replace("{{role}}", employee.getRole());
+        engineerCard = engineerCard.replace("{{id}}", employee.getId());
+        engineerCard = engineerCard.replace("{{email}}", employee.getEmail());
+        engineerCard = engineerCard.replace("{{github}}", employee.getGithub());
+        return engineerCard;
+    } else if (employee.getRole() === "Intern") {
+        let internCard = fs.readFileSync("./templates/intern.html", "utf8");
+        internCard = internCard.replace("{{name}}", employee.getName());
+        internCard = internCard.replace("{{role}}", employee.getRole());
+        internCard = internCard.replace("{{id}}", employee.getId());
+        internCard = internCard.replace("{{email}}", employee.getEmail());
+        internCard = internCard.replace("{{school}}", employee.getSchool());
+        return internCard;
+    }
+}
+
+init();
