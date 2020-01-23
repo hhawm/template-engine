@@ -146,7 +146,8 @@ function teamData() {
 
                 // Places all employees cards into main.html page
                 let main = fs.readFileSync("./templates/main.html", "utf8");
-                // Dont understand "/{{teamTitle}}/g"
+
+                // Slashes with g will plug into multiple spots /{{teamTitle}}/g 
                 main = main.replace(/{{teamTitle}}/g, teamName);
                 main = main.replace("{{cards}}", cards);
 
@@ -162,7 +163,7 @@ function renderManagerCard(manager) {
     managerCard = managerCard.replace("{{name}}", manager.getName());
     managerCard = managerCard.replace("{{role}}", manager.getRole());
     managerCard = managerCard.replace("{{id}}", manager.getId());
-    managerCard = managerCard.replace("{{email}}", manager.getEmail());
+    managerCard = managerCard.replace(/{{email}}/g, manager.getEmail());
     managerCard = managerCard.replace("{{officeNumber}}", manager.getOfficeNumber());
     cards = managerCard;
     return cards;
@@ -175,15 +176,15 @@ function renderEmployeeCard(employee) {
         engineerCard = engineerCard.replace("{{name}}", employee.getName());
         engineerCard = engineerCard.replace("{{role}}", employee.getRole());
         engineerCard = engineerCard.replace("{{id}}", employee.getId());
-        engineerCard = engineerCard.replace("{{email}}", employee.getEmail());
-        engineerCard = engineerCard.replace("{{github}}", employee.getGithub());
+        engineerCard = engineerCard.replace(/{{email}}/g, employee.getEmail());
+        engineerCard = engineerCard.replace(/{{github}}/g, employee.getGithub());
         return engineerCard;
     } else if (employee.getRole() === "Intern") {
         let internCard = fs.readFileSync("./templates/intern.html", "utf8");
         internCard = internCard.replace("{{name}}", employee.getName());
         internCard = internCard.replace("{{role}}", employee.getRole());
         internCard = internCard.replace("{{id}}", employee.getId());
-        internCard = internCard.replace("{{email}}", employee.getEmail());
+        internCard = internCard.replace(/{{email}}/g, employee.getEmail());
         internCard = internCard.replace("{{school}}", employee.getSchool());
         return internCard;
     }
