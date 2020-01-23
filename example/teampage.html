@@ -18,21 +18,45 @@
         id="bootstrap-css">
     <link href="../css/style.css" rel="stylesheet">
 
-    <title>{{teamTitle}}</title>
+    <title>aaaaaa</title>
 </head>
 
 <body id="top">
     <!-- Name of team inputted here from prompts -->
+    <hr>
+    <h1 class="title text-name">aaaaaa</h1>
+    <hr>
 
-    <hr>
-    <h1 class="title text-name">{{teamTitle}}</h1>
-    <hr>
+    <!-- Manager card first, then employees go here -->
+    <!-- Manager card -->
     <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <h3 class="card-title text-name">A</h3>
+                <h5 class="card-title"><i class="fas fa-mug-hot"></i> Manager</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">ID: 111</li>
+                    <li class="list-group-item">Email: {{email}} </li>
+                    <li class="list-group-item">Office: 222</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Intern card -->
 
-        <!-- Manager card first, then employee cards go here -->
-        {{cards}}
-
+        <div class="col-sm-6">
+            <div class="card">
+                <h3 class="card-title text-name">A</h3>
+                <h5 class="card-title"><i class="fas fa-mug-hot"></i> Manager</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">ID: 111</li>
+                    <li class="list-group-item">Email: {{email}} </li>
+                    <li class="list-group-item">Office: 222</li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+
     <hr>
     <footer>
         <p>End of Team Listing</p>

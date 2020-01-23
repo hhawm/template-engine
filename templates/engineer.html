@@ -1,24 +1,14 @@
 <!--Engineer card-->
 
-<div class="card hovercard">
-    <div class="cardheader">
-        <div class="card-heading">
-            {{name}}
-        </div>
-
-        <div class="role">
-            <i class="fas fa-glasses"></i>
-            {{role}}
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="desc">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: {{id}}</li>
-                <li class="list-group-item">Email: {{email}}</li>
-                <li class="list-group-item">Github: <a href="https://www.github.com/{{ github() }}">{{ github() }}</a>
-                </li>
-            </ul>
-        </div>
+<div class="col-sm-6">
+    <div class="card">
+        <h3 class="card-title text-name">{{name}}</h3>
+        <h5 class="card-title"><i class="fas fa-glasses"></i> {{role}}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">ID: {{id}}</li>
+            <li class="list-group-item">Email: <a href="mailto:{{email}}">{{email}}</li>
+            <li class="list-group-item">Github: <a href="https://www.github.com/{{github}}"
+                    target="_blank">{{github}}</a>
+        </ul>
     </div>
 </div>

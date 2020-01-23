@@ -1,23 +1,13 @@
 <!-- Manager card -->
 
-<div class="card hovercard">
-    <div class="cardheader">
-        <div class="card-heading">
-            {{name}}
-        </div>
-
-        <div class="role">
-            <i class="fas fa-mug-hot"></i>
-            {{role}}
-        </div>
-    </div>
-    <div class="card-body">
-        <div class="desc">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: {{id}}</li>
-                <li class="list-group-item">Email: {{email}}</li>
-                <li class="list-group-item">Office: {{officeNumber}}</li>
-            </ul>
-        </div>
+<div class="col-sm-6">
+    <div class="card">
+        <h3 class="card-title text-name">{{name}}</h3>
+        <h5 class="card-title"><i class="fas fa-mug-hot"></i> {{role}}</h5>
+        <ul class="list-group">
+            <li class="list-group-item">ID: {{id}}</li>
+            <li class="list-group-item">Email: {{email}} </li>
+            <li class="list-group-item">Office: {{officeNumber}}</li>
+        </ul>
     </div>
 </div>
