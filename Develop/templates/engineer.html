@@ -1,0 +1,24 @@
+<!--Engineer card-->
+
+<div class="card hovercard">
+    <div class="cardheader">
+        <div class="card-heading">
+            {{name}}
+        </div>
+
+        <div class="role">
+            <img src="#"></img>
+            {{role}}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="desc">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: {{id}}</li>
+                <li class="list-group-item">Email: {{email}}</li>
+                <li class="list-group-item">Github: <a href="https://www.github.com/{{ github() }}">{{ github() }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
