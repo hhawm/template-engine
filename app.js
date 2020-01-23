@@ -94,8 +94,6 @@ teamQuestions = [
     },
 ];
 
-
-
 function init() {
     inquirer.prompt(managerQuestions)
         .then(managerResponse => {
@@ -105,12 +103,13 @@ function init() {
             const managerEmail = managerResponse.manageremail;
             const officeNumber = managerResponse.officenumber;
 
-            //create a new manager and add them to teamMember array
+            // Creates and adds ONE manager to teamMember array
             manager = new Manager(managerName, managerId, managerEmail, officeNumber);
             teamData();
         })
 }
 
+// Collects role, employee's name, id#, email, github, school
 function teamData() {
     inquirer.prompt(teamQuestions)
         .then(userResponse => {
@@ -120,9 +119,10 @@ function teamData() {
             const employeeEmail = userResponse.employeeemail;
             const github = userResponse.github;
             const school = userResponse.school;
+            // Asks if you want to add another member (y/n)
             const additonalMember = userResponse.additonalmember;
 
-            //create either new engineer or intern
+            // Creates new engineer or intern
             if (role === "Engineer") {
                 const engineer = new Engineer(employeeName, employeeId, employeeEmail, github);
                 teamMembers.push(engineer);
@@ -131,35 +131,31 @@ function teamData() {
                 teamMembers.push(intern);
             }
 
-            //create a statment that lets the function run for as many members the team needs
+            // Creates statement that lets the function rerun to include more engineers or interns
             if (additonalMember === true) {
                 teamData();
             } else {
-                //render manager
+                // Makes manager card
                 renderManagerCard(manager);
 
-                //render team
+                // Renders engineers and-or intern cards
                 for (var i = 0; i < teamMembers.length; i++) {
                     let employee = teamMembers[i];
                     cards += renderEmployeeCard(employee);
                 }
 
-                //read main html and place employee cards into main html
+                // Places all employees cards into main.html page
                 let main = fs.readFileSync("./templates/main.html", "utf8");
                 main = main.replace(/{{teamTitle}}/g, teamName);
                 main = main.replace("{{cards}}", cards);
 
-                //Write new html and create path to example folder
+                // Creates new folder and teampage.html
                 writeFileAsync("./example/teampage.html", main);
             }
         })
 }
 
-//=========================
-//functions to render data
-//========================
-
-//render manager card
+// Makes manager card
 function renderManagerCard(manager) {
     let managerCard = fs.readFileSync("./templates/manager.html", "utf8");
     managerCard = managerCard.replace("{{name}}", manager.getName());
@@ -168,10 +164,10 @@ function renderManagerCard(manager) {
     managerCard = managerCard.replace("{{email}}", manager.getEmail());
     managerCard = managerCard.replace("{{officeNumber}}", manager.getOfficeNumber());
     cards = managerCard;
-    return cards
+    return cards;
 }
 
-//render employee cards
+// Makes engineer or intern cards
 function renderEmployeeCard(employee) {
     if (employee.getRole() === "Engineer") {
         let engineerCard = fs.readFileSync("./templates/engineer.html", "utf8");
@@ -192,4 +188,5 @@ function renderEmployeeCard(employee) {
     }
 }
 
+// Starts everything with "node app.js" 
 init();
