@@ -4,12 +4,13 @@ const inquirer = require("inquirer");
 const util = require("util");
 
 // Classes for employee
+const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
-const Manager = require("./lib/manager");
+
 
 // Read or write files to promisify
-const readFileAsync = util.promisify(fs.readFileSync);
+// const readFileAsync = util.promisify(fs.readFileSync);
 const writeFileAsync = util.promisify(fs.writeFileSync);
 
 // Creates array of teamMembers
@@ -25,27 +26,26 @@ managerQuestions = [
     },
     {
         type: "input",
-        message: "Who is the Manager of this project",
+        message: "Who is the Project Manager?",
         name: "managername"
         // validate: validate.name
     },
     {
         type: "input",
-        message: "What is the Manager's ID?",
+        message: "What is the Project Manager's ID number?",
         name: "managerid",
         // validate: validate.int
     },
     {
         type: "input",
-        message: "What is the Manager's Email?",
+        message: "What is the Project Manager's email?",
         name: "manageremail",
         // validate: validate.email
     },
     {
         type: "input",
-        message: "What is the Manager's Office Number?",
+        message: "What is the Project Manager's office number?",
         name: "officenumber",
-        // validate: validate.int
     }
 ];
 
@@ -53,7 +53,7 @@ managerQuestions = [
 teamQuestions = [
     {
         type: "list",
-        message: "Select type of employee to add",
+        message: "Select type of employee to add:",
         choices: ["Intern", "Engineer"],
         name: "role",
     },
@@ -65,32 +65,32 @@ teamQuestions = [
     },
     {
         type: "input",
-        message: "What is the employee's ID?",
+        message: "What is the employee's ID number?",
         name: "employeeid",
         // validate: validate.int
     },
     {
         type: "input",
-        message: "What is the employee's Email?",
+        message: "What is the employee's email?",
         name: "employeeemail",
         // validate: validate.email
     },
     {
         type: "input",
-        message: "Engineer's GitHub user name?",
+        message: "What is the Engineer's GitHub user name?",
         when: (userResponse) => userResponse.role === "Engineer",
         name: "github",
     },
     {
         type: "input",
-        message: "Intern's school name?",
+        message: "What is the Intern's school name?",
         when: (userResponse) => userResponse.role === "Intern",
         name: "school",
     },
     {
         type: "confirm",
         message: "Would you like to add another employee to the team?",
-        name: "additonalmember"
+        name: "additonalmember",
     },
 ];
 
@@ -146,6 +146,7 @@ function teamData() {
 
                 // Places all employees cards into main.html page
                 let main = fs.readFileSync("./templates/main.html", "utf8");
+                // Dont understand "/{{teamTitle}}/g"
                 main = main.replace(/{{teamTitle}}/g, teamName);
                 main = main.replace("{{cards}}", cards);
 
