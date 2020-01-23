@@ -20,7 +20,7 @@ class Employee {
     getRole() {
         // console.log(`Employee Role: ${this.getRole}`);
         return this.role;
-    }
+    };
 }
 
 module.exports = Employee;
